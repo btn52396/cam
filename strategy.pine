@@ -78,7 +78,9 @@ rsiValue  = ta.rsi(rsiSource, rsiLength)
 // =                            CONDITIONS                                  =
 // =========================================================================
 rsiAbove70       = rsiValue > 70
-priceHits2ndBand = ta.crossover(close, upperBandValue2)
+priceHits2ndBand = high > upperBandValue2
+
+cond = rsiAbove70 and priceHits2ndBand
 
 // =========================================================================
 // =                           VISUAL MARKERS                               =
@@ -86,10 +88,10 @@ priceHits2ndBand = ta.crossover(close, upperBandValue2)
 //
 // 1) Show a red label above the bar when RSI is above 70 and priceHits2ndBand.
 //
-plotshape(rsiAbove70 and priceHits2ndBand, title = "RSI Above 70 and priceHits2ndBand", style = shape.labeldown, location = location.top, color = color.new(color.red, 0), textcolor = color.white, size = size.tiny)
+plotshape(cond, title = "RSI Above 70 and priceHits2ndBand", style = shape.labeldown, location = location.top, color = color.new(color.red, 0), textcolor = color.white, size = size.tiny)
 
 // =========================================================================
 // =                            ALERTS                                      =
 // =========================================================================
 
-alertcondition(condition = rsiAbove70 and priceHits2ndBand, title = "RSI Above 70 and Price Hits 2nd Band", message = "Bear signal")
+alertcondition(condition = cond, title = "RSI Above 70 and Price Hits 2nd Band", message = "Bear signal")
